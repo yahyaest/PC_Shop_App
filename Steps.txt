@@ -73,12 +73,20 @@ Part VII : Frontend Authentication
 
 
 PART VIII : Deployment
+-- Add in "package.json" :
+*** "engines": {
+    "node": "15.3.0",    // Node version you use
+    "npm": "6.14.11"     // npm version you use
+  }, ***
+
+
+0-git init
 1-heroku login
 2-heroku create pc-shop-app
 3-heroku git:remote -a  pc-shop-app
 4-heroku buildpacks:add --index 1 heroku/nodejs
 5-heroku buildpacks:add --index 2 heroku/python
- 6-heroku config:set ALLOWED_HOSTS=pc-shop-app.herokuapp.com
+6-heroku config:set ALLOWED_HOSTS=pc-shop-app.herokuapp.com
 7-heroku config:set SECRET_KEY='gu93f_v894j#rd)&ehwjj95==ou+7+n#63qmfhd(+pberz-#c'
 8-heroku config:set WEB_CONCURRENCY=1
 9-npm run build
@@ -87,7 +95,7 @@ PART VIII : Deployment
 12-create Runtime.txt file
 13-git add .
 14-git commit -m commit-message
-15-git push heroku 
+15-git push heroku master
 
 
 

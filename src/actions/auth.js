@@ -24,7 +24,10 @@ export const loadUser = () => (dispatch, getState) => {
   });
 
   axios
-    .get("http://127.0.0.1:8000/api/auth/user", tokenConfig(getState))
+    .get(
+      `${process.env.REACT_APP_ROOT_URL}/api/auth/user`,
+      tokenConfig(getState)
+    )
     .then((res) => dispatch({ type: USER_LOADED, payload: res.data }))
     .catch((err) => {
       console.log(err);
@@ -35,7 +38,10 @@ export const loadUser = () => (dispatch, getState) => {
   setTimeout(() => {
     const userId = getState().auth.user?.id;
     axios
-      .get("http://127.0.0.1:8000/api/profile/", tokenConfig(getState))
+      .get(
+        `${process.env.REACT_APP_ROOT_URL}/api/profile/`,
+        tokenConfig(getState)
+      )
       .then((res) => {
         const userProfile = res.data.filter((user) => user.user === userId);
         //console.log(userProfile[0].data);
@@ -48,7 +54,7 @@ export const loadUser = () => (dispatch, getState) => {
         console.log(err);
       });
     axios
-      .get(`http://127.0.0.1:8000/api/user/${userId}/`)
+      .get(`${process.env.REACT_APP_ROOT_URL}/api/user/${userId}/`)
       .then((res) => {
         dispatch({
           type: LOGGED_USER,
@@ -72,7 +78,7 @@ export const login = (username, password) => (dispatch, getState) => {
   const body = JSON.stringify({ username, password });
 
   axios
-    .post("http://127.0.0.1:8000/api/auth/login", body, config)
+    .post(`${process.env.REACT_APP_ROOT_URL}/api/auth/login`, body, config)
     .then((res) => dispatch({ type: LOGIN_SUCCESS, payload: res.data }))
     .catch((err) => {
       console.log(err);
@@ -83,7 +89,10 @@ export const login = (username, password) => (dispatch, getState) => {
   setTimeout(() => {
     const userId = getState().auth.user?.id;
     axios
-      .get("http://127.0.0.1:8000/api/profile/", tokenConfig(getState))
+      .get(
+        `${process.env.REACT_APP_ROOT_URL}/api/profile/`,
+        tokenConfig(getState)
+      )
       .then((res) => {
         const userProfile = res.data.filter((user) => user.user === userId);
         dispatch({
@@ -95,7 +104,7 @@ export const login = (username, password) => (dispatch, getState) => {
         console.log(err);
       });
     axios
-      .get(`http://127.0.0.1:8000/api/user/${userId}/`)
+      .get(`${process.env.REACT_APP_ROOT_URL}/api/user/${userId}/`)
       .then((res) => {
         dispatch({
           type: LOGGED_USER,
@@ -109,7 +118,11 @@ export const login = (username, password) => (dispatch, getState) => {
 // LOGOUT USER
 export const logout = () => (dispatch, getState) => {
   axios
-    .post("http://127.0.0.1:8000/api/auth/logout", null, tokenConfig(getState)) //body is null
+    .post(
+      `${process.env.REACT_APP_ROOT_URL}/api/auth/logout`,
+      null,
+      tokenConfig(getState)
+    ) //body is null
     .then((res) => dispatch({ type: LOGOUT_SUCCESS }))
     .catch((err) => {
       console.log(err);
@@ -118,33 +131,35 @@ export const logout = () => (dispatch, getState) => {
 };
 
 // REGISTER USER
-export const register = ({ username, password, email }) => (dispatch) => {
-  // Headers
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
+export const register =
+  ({ username, password, email }) =>
+  (dispatch) => {
+    // Headers
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    // Request Body
+    const body = JSON.stringify({ username, password, email });
+
+    axios
+      .post("${process.env.REACT_APP_ROOT_URL}/api/auth/register", body, config)
+      .then((res) => dispatch({ type: REGISTER_SUCCESS, payload: res.data }))
+      .catch((err) => {
+        console.log(err);
+        dispatch(returnErrors(err.response.data, err.response.status));
+        dispatch({ type: REGISTER_FAIL });
+      });
   };
-
-  // Request Body
-  const body = JSON.stringify({ username, password, email });
-
-  axios
-    .post("http://127.0.0.1:8000/api/auth/register", body, config)
-    .then((res) => dispatch({ type: REGISTER_SUCCESS, payload: res.data }))
-    .catch((err) => {
-      console.log(err);
-      dispatch(returnErrors(err.response.data, err.response.status));
-      dispatch({ type: REGISTER_FAIL });
-    });
-};
 
 // ADD/REMOVE TO PROFILE
 export const addRemoveToProfile = (userProfile) => (dispatch, getState) => {
   const userId = getState().auth.user?.id;
   axios
     .put(
-      `http://127.0.0.1:8000/api/profile/${userId}/`,
+      `${process.env.REACT_APP_ROOT_URL}/api/profile/${userId}/`,
       userProfile,
       tokenConfig(getState)
     )

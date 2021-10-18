@@ -76,7 +76,9 @@ export const getAllComponents = async () => {
   const componentVariants = Object.keys(componentAttribute);
 
   for (let variant of componentVariants) {
-    const result = await axios.get(`http://127.0.0.1:8000/api/${variant}/`);
+    const result = await axios.get(
+      `${process.env.REACT_APP_ROOT_URL}/api/${variant}/`
+    );
 
     for (let component of result.data) {
       allComponents.push(component);

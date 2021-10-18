@@ -30,7 +30,7 @@ export const currentComponent = (componentType) => (dispatch) => {
 //GET_COMPONENTs
 export const getComponents = (componentType) => (dispatch) => {
   axios
-    .get(`http://127.0.0.1:8000/api/${componentType}/`)
+    .get(`${process.env.REACT_APP_ROOT_URL}/api/${componentType}/`)
     .then((res) => {
       dispatch({
         type: GET_COMPONENTS,
@@ -44,7 +44,7 @@ export const getComponents = (componentType) => (dispatch) => {
 //GET_COMPONENT
 export const getComponent = (id, componentType) => (dispatch) => {
   axios
-    .get(`http://127.0.0.1:8000/api/${componentType}/${id}/`)
+    .get(`${process.env.REACT_APP_ROOT_URL}/api/${componentType}/${id}/`)
     .then((res) => {
       dispatch({
         type: GET_COMPONENT,
@@ -57,7 +57,10 @@ export const getComponent = (id, componentType) => (dispatch) => {
 // ADD_COMPONENT
 export const addComponent = (componentObject, componentType) => (dispatch) => {
   axios
-    .post(`http://127.0.0.1:8000/api/${componentType}/`, componentObject)
+    .post(
+      `${process.env.REACT_APP_ROOT_URL}/api/${componentType}/`,
+      componentObject
+    )
     .then((res) => {
       dispatch({
         type: ADD_COMPONENT,
@@ -70,30 +73,32 @@ export const addComponent = (componentObject, componentType) => (dispatch) => {
 };
 
 // UPDATE_COMPONENT
-export const updateComponent = (componentObject, componentType, id) => (
-  dispatch
-) => {
-  for (var value of componentObject.entries()) {
-    console.log(value[0] + ", " + value[1]);
-  }
-  axios
-    .put(`http://127.0.0.1:8000/api/${componentType}/${id}/`, componentObject)
-    .then((res) => {
-      dispatch({
-        type: UPDATE_COMPONENT,
-        payload: res.data,
-        index: id,
+export const updateComponent =
+  (componentObject, componentType, id) => (dispatch) => {
+    for (var value of componentObject.entries()) {
+      console.log(value[0] + ", " + value[1]);
+    }
+    axios
+      .put(
+        `${process.env.REACT_APP_ROOT_URL}/api/${componentType}/${id}/`,
+        componentObject
+      )
+      .then((res) => {
+        dispatch({
+          type: UPDATE_COMPONENT,
+          payload: res.data,
+          index: id,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+  };
 
 // DELETE_COMPONENT
 export const deleteComponent = (id, componentType) => (dispatch) => {
   axios
-    .delete(`http://127.0.0.1:8000/api/${componentType}/${id}/`)
+    .delete(`${process.env.REACT_APP_ROOT_URL}/api/${componentType}/${id}/`)
     .then((res) => {
       dispatch({
         type: DELETE_COMPONENT,
@@ -102,4 +107,3 @@ export const deleteComponent = (id, componentType) => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
-

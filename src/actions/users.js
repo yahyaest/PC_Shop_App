@@ -12,7 +12,7 @@ export const resetUser = () => (dispatch) => {
 //GET_USERs
 export const getUsers = () => (dispatch) => {
   axios
-    .get(`http://127.0.0.1:8000/api/user/`)
+    .get(`${process.env.REACT_APP_ROOT_URL}/api/user/`)
     .then((res) => {
       dispatch({
         type: actions.GET_USERS,
@@ -25,7 +25,7 @@ export const getUsers = () => (dispatch) => {
 //GET_USER
 export const getUser = (id) => (dispatch) => {
   axios
-    .get(`http://127.0.0.1:8000/api/user/${id}/`)
+    .get(`${process.env.REACT_APP_ROOT_URL}/api/user/${id}/`)
     .then((res) => {
       dispatch({
         type: actions.GET_USER,
@@ -38,7 +38,7 @@ export const getUser = (id) => (dispatch) => {
 // ADD_USER
 export const addUser = (user) => (dispatch) => {
   axios
-    .post(`http://127.0.0.1:8000/api/user/`, user)
+    .post(`${process.env.REACT_APP_ROOT_URL}/api/user/`, user)
     .then((res) => {
       dispatch({
         type: actions.ADD_USER,
@@ -54,7 +54,7 @@ export const addUser = (user) => (dispatch) => {
 export const updateUser = (user, id) => (dispatch) => {
   const { username, email, is_superuser } = user;
   axios
-    .patch(`http://127.0.0.1:8000/api/user/${id}/`, {
+    .patch(`${process.env.REACT_APP_ROOT_URL}/api/user/${id}/`, {
       username,
       email,
       is_superuser,
@@ -74,7 +74,7 @@ export const updateUser = (user, id) => (dispatch) => {
 // DELETE_USER
 export const deleteUser = (id) => (dispatch) => {
   axios
-    .delete(`http://127.0.0.1:8000/api/user/${id}/`)
+    .delete(`${process.env.REACT_APP_ROOT_URL}/api/user/${id}/`)
     .then((res) => {
       dispatch({
         type: actions.DELETE_USER,

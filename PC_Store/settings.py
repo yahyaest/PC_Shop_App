@@ -136,7 +136,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 django_heroku.settings(locals())
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'src/images/image_DB')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'public/images/image_DB')
 
 # for development
 CORS_ORIGIN_WHITELIST = [

@@ -46,11 +46,26 @@ function Favourites(props) {
     <React.Fragment>
       <Navbar />
       <div className="container">
-     <h1 className="text-center py-3" >Favourites</h1>
+        <h1 className="text-center py-3">Favourites</h1>
         <div className="cards__list">
           {favouritesList?.map((component) => (
             <div key={component?.name} className="component__card">
               <img
+                src={`/images/image_DB/${component?.image.split("images/")[1]}`}
+                alt=""
+                className="component__image"
+                onClick={() => {
+                  props.history.push(
+                    `/components/${
+                      component.hardware_type === "PcGamer"
+                        ? "pcGamer"
+                        : component.hardware_type.toLowerCase()
+                    }/${component.id}/${component.name}`
+                  );
+                }}
+              />
+
+              {/* <img
                 className="component__image"
                 src={component?.image}
                 alt=""
@@ -63,7 +78,7 @@ function Favourites(props) {
                     }/${component.id}/${component.name}`
                   );
                 }}
-              />
+              />//dev */}
               <div className="component__info">
                 <h4 className="component__name">{component?.name}</h4>
                 <div className="componentCard__footer">

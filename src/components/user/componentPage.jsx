@@ -60,7 +60,8 @@ function ComponentPage(props) {
         <div className="component__section">
           <h2 className="component_name">{component?.name}</h2>
           <div className="component_info">
-            <img src={component?.image} alt="" className="component__photo" />
+            <img src={`/images/image_DB/${component?.image.split("images/")[1]}`} alt="" className="component__photo" />
+            {/* <img src={component?.image} alt="" className="component__photo" />  //for development*/}
             <div className="component__specs">
               {componentAttributeInfo.map((attribute) => (
                 <div key={attribute.label}>

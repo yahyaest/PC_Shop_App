@@ -54,7 +54,7 @@ function Carts(props) {
     <React.Fragment>
       <Navbar />
       <div className="container">
-      <h1 className="text-center py-3" >Carts</h1>
+        <h1 className="text-center py-3">Carts</h1>
         <div className="cards__list">
           {cartsList?.map((component) => (
             <div key={component?.name} className="component__card">
@@ -72,6 +72,20 @@ function Carts(props) {
                   );
                 }}
               />
+              {/* <img
+                className="component__image"
+                src={component?.image}
+                alt=""
+                onClick={() => {
+                  props.history.push(
+                    `/components/${
+                      component.hardware_type === "PcGamer"
+                        ? "pcGamer"
+                        : component.hardware_type.toLowerCase()
+                    }/${component.id}/${component.name}`
+                  );
+                }}
+              />  //dev  */}
               <div className="component__info">
                 <h4 className="component__name">{component?.name}</h4>
                 <div className="componentCard__footer">

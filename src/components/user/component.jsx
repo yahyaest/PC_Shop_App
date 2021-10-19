@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getComponents, currentComponent } from "../../actions/merchandises";
 import { addRemoveToProfile } from "./../../actions/auth";
-import Navbar from "./navbar";import Footer from "./footer";
+import Navbar from "./navbar";
+import Footer from "./footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
@@ -79,6 +80,19 @@ function Component(props) {
             (component) => (
               <div key={component.id} className="component__card">
                 <img
+                  src={`/images/image_DB/${
+                    component?.image.split("images/")[1]
+                  }`}
+                  alt=""
+                  className="component__image"
+                  onClick={() => {
+                    props.history.push(
+                      `/components/${componentVariant}/${component.id}/${component.name}`
+                    );
+                  }}
+                />
+
+                {/* <img
                   className="component__image"
                   src={component.image}
                   alt=""
@@ -87,7 +101,7 @@ function Component(props) {
                       `/components/${componentVariant}/${component.id}/${component.name}`
                     );
                   }}
-                />
+                />   //dev   */}
                 <div className="component__info">
                   <h4 className="component__name">{component.name}</h4>
                   <div className="componentCard__footer">

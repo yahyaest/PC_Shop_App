@@ -90,6 +90,18 @@ PART VIII : Deployment
 6-heroku config:set ALLOWED_HOSTS=pc-shop-app.herokuapp.com
 7-heroku config:set SECRET_KEY='gu93f_v894j#rd)&ehwjj95==ou+7+n#63qmfhd(+pberz-#c'
 8-heroku config:set WEB_CONCURRENCY=1
+--heroku run python manage.py createsuperuser
+# pg_dump --verbose -F c -Z 0 -U postgres 
+# -h localhost -p 5432 pcshopdb > local.dump
+# heroku config:get DATABASE_URL
+# --->  postgres:// username : password @ hostname : port / databasename 
+# --->  postgres://lzypzgiofudxis:77c03f14ec6be86e66cbd9a75e8a93d76296ddfc1197851dc99afe489c2973fc@ec2-34-233-64-238.compute-1.amazonaws.com:5432/d19cu45vmia24l
+# pg_restore --verbose --no-acl --no-owner -U username -h hostname -p 5432 -d databasename < local.dump
+# pg_restore --verbose --no-acl --no-owner -U lzypzgiofudxis -h ec2-34-233-64-238.compute-1.amazonaws.com -p 5432 -d d19cu45vmia24l < local.dump
+
+$env:PGUSER=postgres -D "C:\Program Files\PostgreSQL\14\data"
+heroku pg:push pcshopdb HEROKU_POSTGRESQL_WHITE_URL --app pc-shop-app
+
 9-npm run build
 10-create Procfile
 11-create Requirements.txt file
@@ -98,6 +110,8 @@ PART VIII : Deployment
 14-git commit -m commit-message
 15-git push heroku master
 
+
+-- heroku addons:create cloudinary
 
 
 

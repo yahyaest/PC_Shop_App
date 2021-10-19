@@ -79,8 +79,8 @@ function Component(props) {
           {props.componentTable[componentVariant.toUpperCase()]?.map(
             (component) => (
               <div key={component.id} className="component__card">
-                <img
-                  src={`/images/image_DB/${
+                <img 
+                  src={`../../images/image_DB/${
                     component?.image.split("images/")[1]
                   }`}
                   alt=""

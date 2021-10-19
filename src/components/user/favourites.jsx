@@ -51,7 +51,9 @@ function Favourites(props) {
           {favouritesList?.map((component) => (
             <div key={component?.name} className="component__card">
               <img
-                src={`/images/image_DB/${component?.image.split("images/")[1]}`}
+                src={`../../images/image_DB/${
+                  component?.image.split("images/")[1]
+                }`}
                 alt=""
                 className="component__image"
                 onClick={() => {

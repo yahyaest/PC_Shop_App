@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import Navbar from "./navbar";
-import Footer from './footer';
+import Footer from "./footer";
 
 function Carts(props) {
   Carts.propTypes = {
@@ -42,12 +42,14 @@ function Carts(props) {
     }
   };
 
-   if(cartsList?.length===0 ){
-    return <React.Fragment>
-      <Navbar />
-      <h1 style={{paddingTop:"100px"}}>No carts are added yet.</h1>
-  <Footer />
-    </React.Fragment>
+  if (cartsList?.length === 0) {
+    return (
+      <React.Fragment>
+        <Navbar />
+        <h1 style={{ paddingTop: "100px" }}>No carts are added yet.</h1>
+        <Footer />
+      </React.Fragment>
+    );
   }
 
   return (
@@ -60,7 +62,9 @@ function Carts(props) {
             <div key={component?.name} className="component__card">
               <img
                 className="component__image"
-                src={component?.image}
+                src={`../../images/image_DB/${
+                  component?.image.split("images/")[1]
+                }`}
                 alt=""
                 onClick={() => {
                   props.history.push(

@@ -24,17 +24,11 @@ function ComponentPage(props) {
   const userProfileData = props.profile;
   let { chart } = userProfileData?.data ? userProfileData?.data : ""; // Due to the setTimeout in action dispatching
   let { favourites } = userProfileData?.data ? userProfileData?.data : ""; // Due to the setTimeout in action dispatching
-  const [currentComponent,setCurrentComponent]=useState("")
-  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     const componentVariant = props.match.params.component;
-    const component =
-      props.componentObject[componentVariant.toUpperCase()] ||
-      props.componentObject[""];
-      setCurrentComponent(component?.image.split("images/")[1]);
     props.getComponent(componentId, componentVariant);
-  }, [componentId,componentVariant]);
+  }, []);
 
   const updateCharteList = (component, quantity) => {
     // console.log(component);
@@ -58,17 +52,7 @@ function ComponentPage(props) {
   const component =
     props.componentObject[componentVariant.toUpperCase()] ||
     props.componentObject[""];
-    const componentImage = component?.image  ? `../../images/image_DB/${
-      component?.image.split("images/")[1]
-    }` : "";
-  
-  if (componentImage!== "" && counter <5) {
-    setCurrentComponent(componentImage);
-    setCounter(counter +1);
-    console.log(counter,currentComponent);
-  }
-
-
+   
   return (
     <React.Fragment>
       <Navbar />
@@ -76,13 +60,17 @@ function ComponentPage(props) {
         <div className="component__section">
           <h2 className="component_name">{component?.name}</h2>
           <div className="component_info">
-            {currentComponent !== "" && (
+           
               <img
-                src={currentComponent}
-                alt={currentComponent}
+                src={`/../../images/image_DB/${
+      component?.image.split("images/")[1]
+    }`}
+                alt={`/../../images/image_DB/${
+      component?.image.split("images/")[1]
+    }`}
                 className="component__photo"
               />
-            )}
+          
             {/* <img src={component?.image} alt="" className="component__photo" />  //for development*/}
             <div className="component__specs">
               {componentAttributeInfo.map((attribute) => (

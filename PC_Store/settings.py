@@ -78,12 +78,16 @@ WSGI_APPLICATION = 'PC_Store.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+### Development default sqlite DB ###
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+DATABASES = {}  # Empty the default database settings (production)
+
 
 
 # Password validation
@@ -141,3 +145,9 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True 
+
+# production postgreSQL
+try:
+    from .local_settings import *
+except ImportError:
+    pass

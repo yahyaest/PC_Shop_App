@@ -83,7 +83,7 @@ function Component(props) {
                   // src={`../../images/image_DB/${
                   //   component?.image.split("images/")[1]
                   // }`}
-                  src={`${process.env.REACT_APP_ROOT_URL}/static/media/image_DB/${component?.image.split("images/")[1]}`}
+                  src={`${process.env.REACT_APP_ROOT_URL}/static/media/${component?.image.split("images/")[1]}`}
                   alt=""
                   className="component__image"
                   onClick={() => {

@@ -51,7 +51,7 @@ function Favourites(props) {
           {favouritesList?.map((component) => (
             <div key={component?.name} className="component__card">
               <img
-                src={`${process.env.REACT_APP_ROOT_URL}/static/media/image_DB/${
+                src={`${process.env.REACT_APP_ROOT_URL}/static/media/${
                   component?.image.split("images/")[1]
                 }`}
                 // src={`../../images/image_DB/${

@@ -98,7 +98,7 @@ function Component(props) {
                   className="component__image"
                   onClick={() => {
                     props.history.push(
-                      `/components/${componentVariant}/${component.id}/${component.name}`
+                      `${images[`${component.image.split("images/")[1]}`]}`
                     );
                   }}
                 />

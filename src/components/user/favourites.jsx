@@ -5,8 +5,9 @@ import { addRemoveToProfile } from "./../../actions/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
-import Navbar from "./navbar"; import Footer from "./footer";
-import { importAll } from "../../services/importImageFolder";
+import Navbar from "./navbar";
+import Footer from "./footer";
+import { importAll, getImageIndex } from "../../services/importImageFolder";
 
 function Favourites(props) {
   Favourites.propTypes = {
@@ -24,13 +25,14 @@ function Favourites(props) {
   const images = importAll(
     require.context("../../images/image_DB", false, /\.(png|jpe?g|svg)$/)
   );
-  
 
   const updateFavouriteList = (component) => {
     // console.log(component);
 
     favourites = favourites.filter((e) => e?.name !== component?.name);
-    favourites = favourites.filter((component) => component !== undefined || null);
+    favourites = favourites.filter(
+      (component) => component !== undefined || null
+    );
     userProfileData.data.favourites = favourites;
     try {
       props.addRemoveToProfile(userProfileData);
@@ -40,12 +42,14 @@ function Favourites(props) {
     }
   };
 
-  if(favouritesList?.length===0 ){
-    return <React.Fragment>
-      <Navbar />
-      <h1 style={{paddingTop:"100px"}}>No favourites are added yet.</h1>
-  <Footer />
-    </React.Fragment>
+  if (favouritesList?.length === 0) {
+    return (
+      <React.Fragment>
+        <Navbar />
+        <h1 style={{ paddingTop: "100px" }}>No favourites are added yet.</h1>
+        <Footer />
+      </React.Fragment>
+    );
   }
 
   return (
@@ -57,7 +61,11 @@ function Favourites(props) {
           {favouritesList?.map((component) => (
             <div key={component?.name} className="component__card">
               <img
-                src={images[`${component.image.split("images/")[1]}`]}
+                src={
+                  images[
+                    getImageIndex(images, component.image.split("images/")[1])
+                  ]
+                }
                 // src={`../../images/image_DB/${
                 //   component?.image.split("images/")[1]
                 // }`}

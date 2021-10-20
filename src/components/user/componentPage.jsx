@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 import Navbar from "./navbar";
 import { toast } from "react-toastify";
 import Footer from "./footer";
-import { importAll } from "../../services/importImageFolder";
+import { importAll,getImageIndex } from "../../services/importImageFolder";
 import "../../css/componentPage.css";
 
 function ComponentPage(props) {
@@ -70,7 +70,11 @@ const images = importAll(
               // src={`/../../images/image_DB/${
               //   component?.image.split("images/")[1]
               // }`}
-              src={images[`${component?.image.split("images/")[1]}`]}
+              src={
+                images[
+                  getImageIndex(images, component?.image.split("images/")[1])
+                ]
+              }
               alt=""
               className="component__photo"
             />

@@ -10,8 +10,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "../../css/component.css";
-import { importAll } from "../../services/importImageFolder";
-
+import { importAll,getImageIndex } from "../../services/importImageFolder";
 
 function Component(props) {
   Component.propTypes = {
@@ -26,21 +25,16 @@ function Component(props) {
   const userProfileData = props.profile;
   let { favourites } = userProfileData?.data ? userProfileData?.data : ""; // Due to the setTimeout in action dispatching
 
- 
   const images = importAll(
     require.context("../../images/image_DB", false, /\.(png|jpe?g|svg)$/)
   );
-  
 
-  //console.log("Debug", userProfileData, favourites, chart);
 
   useEffect(() => {
     props.currentComponent(componentVariant.toUpperCase());
     props.getComponents(componentVariant);
   }, []);
 
-
-  
   const componentIsFavourite = (componentName) => {
     // Create table that contain names of favourite components
     const favouriteList = [];
@@ -56,7 +50,6 @@ function Component(props) {
   };
 
   const updateFavouriteList = (component) => {
-    // console.log(component);
     if (favourites && componentIsFavourite(component.name) === false) {
       favourites.push(component);
       favourites = favourites.filter((component) => component !== undefined);
@@ -80,6 +73,8 @@ function Component(props) {
     }
   };
 
+
+
   return (
     <React.Fragment>
       <Navbar />
@@ -93,12 +88,16 @@ function Component(props) {
                   // src={`../../images/image_DB/${
                   //   component?.image.split("images/")[1]
                   // }`}
-                  src={images[`${component.image.split("images/")[1]}`]}
+                  src={
+                    images[
+                      getImageIndex(images, component.image.split("images/")[1])
+                    ]
+                  }
                   alt=""
                   className="component__image"
                   onClick={() => {
                     props.history.push(
-                      `${images[`${component.image.split("images/")[1]}`]}`
+                      `/components/${componentVariant}/${component.id}/${component.name}`
                     );
                   }}
                 />

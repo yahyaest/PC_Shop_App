@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { componentAttributeInfo } from "../../services/componentAtributes";
@@ -8,13 +9,14 @@ import { Button } from "react-bootstrap";
 import Navbar from "./navbar";
 import { toast } from "react-toastify";
 import Footer from "./footer";
-import { importAll,getImageIndex } from "../../services/importImageFolder";
+import { importAll, getImageIndex } from "../../services/importImageFolder";
 import "../../css/componentPage.css";
 
 function ComponentPage(props) {
   ComponentPage.propTypes = {
     componentObject: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
     getComponent: PropTypes.func.isRequired,
     addRemoveToProfile: PropTypes.func.isRequired,
   };
@@ -25,11 +27,10 @@ function ComponentPage(props) {
   const userProfileData = props.profile;
   let { chart } = userProfileData?.data ? userProfileData?.data : ""; // Due to the setTimeout in action dispatching
   let { favourites } = userProfileData?.data ? userProfileData?.data : ""; // Due to the setTimeout in action dispatching
-  
-const images = importAll(
-  require.context("../../images/image_DB", false, /\.(png|jpe?g|svg)$/)
-);
-  
+
+  const images = importAll(
+    require.context("../../images/image_DB", false, /\.(png|jpe?g|svg)$/)
+  );
 
   useEffect(() => {
     const componentVariant = props.match.params.component;
@@ -47,6 +48,18 @@ const images = importAll(
       userProfileData.data.favourites = favourites;
       try {
         props.addRemoveToProfile(userProfileData);
+        axios.post(
+          `${process.env.REACT_APP_ROOT_URL}/api/order/`,
+          {
+            client: props.user.username,
+            content: component,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         document.getElementById("number").innerText = 0;
         toast.success(`${component.name}  added to cart successfully`);
       } catch (error) {
@@ -58,7 +71,7 @@ const images = importAll(
   const component =
     props.componentObject[componentVariant.toUpperCase()] ||
     props.componentObject[""];
-   
+
   return (
     <React.Fragment>
       <Navbar />
@@ -154,6 +167,7 @@ const images = importAll(
 const mapStateToProps = (state) => ({
   componentObject: state.merchandises.merchandise,
   profile: state.auth.profile,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, {

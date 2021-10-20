@@ -145,7 +145,7 @@ export const register =
     const body = JSON.stringify({ username, password, email });
 
     axios
-      .post("${process.env.REACT_APP_ROOT_URL}/api/auth/register", body, config)
+      .post(`${process.env.REACT_APP_ROOT_URL}/api/auth/register`, body, config)
       .then((res) => dispatch({ type: REGISTER_SUCCESS, payload: res.data }))
       .catch((err) => {
         console.log(err);

@@ -1,0 +1,8 @@
+.table_style {
+}
+
+@media screen and (max-width: 400px) {
+  .table_style {
+   font-size: 0.65rem;
+  }
+}

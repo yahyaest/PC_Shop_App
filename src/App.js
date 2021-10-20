@@ -16,6 +16,8 @@ import Component from "./components/user/component";
 import ComponentPage from "./components/user/componentPage";
 import Favourites from "./components/user/favourites";
 import Carts from "./components/user/carts";
+
+import Orders from './components/user/orders';
 import Login from "./components/user/login";
 import Register from "./components/user/register";
 import Alerts from "./common/alerts";
@@ -67,6 +69,7 @@ function App() {
           <Route path="/components" component={Components}></Route>
           <Route path="/favourites" component={Favourites}></Route>
           <Route path="/carts" component={Carts}></Route>
+          <Route path="/orders" component={Orders}></Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/register" component={Register}></Route>
           <Redirect from="/" exact to="/home"></Redirect>

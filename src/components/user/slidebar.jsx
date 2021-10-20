@@ -12,6 +12,8 @@ import { faDesktop } from "@fortawesome/free-solid-svg-icons";
 import { faLaptop } from "@fortawesome/free-solid-svg-icons";
 import { faMicrochip } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faList } from "@fortawesome/free-solid-svg-icons";
+
 
 import SpeakerIcon from "@material-ui/icons/Speaker";
 
@@ -104,9 +106,24 @@ function SlideBar(props) {
           )}
 
           {isAdmin && (
-            <li className="slideBar__item" onClick={()=>window.open("/admin")} style={{cursor:"pointer"}}>
+            <li
+              className="slideBar__item"
+            >
+              <FontAwesomeIcon className="icon" icon={faList} />
+              <NavLink to="/orders">
+                <p className="title">Orders</p>
+              </NavLink>
+            </li>
+          )}
+
+          {isAdmin && (
+            <li
+              className="slideBar__item"
+              onClick={() => window.open("/admin")}
+              style={{ cursor: "pointer" }}
+            >
               <FontAwesomeIcon className="icon" icon={faUsersCog} />
-                <p className="title">Admin</p>
+              <p className="title">Admin</p>
             </li>
           )}
         </ul>

@@ -79,10 +79,11 @@ function Component(props) {
           {props.componentTable[componentVariant.toUpperCase()]?.map(
             (component) => (
               <div key={component.id} className="component__card">
-                <img 
-                  src={`../../images/image_DB/${
-                    component?.image.split("images/")[1]
-                  }`}
+                <img
+                  // src={`../../images/image_DB/${
+                  //   component?.image.split("images/")[1]
+                  // }`}
+                  src={`${process.env.REACT_APP_ROOT_URL}/static/media/image_DB/${component?.image.split("images/")[1]}`}
                   alt=""
                   className="component__image"
                   onClick={() => {

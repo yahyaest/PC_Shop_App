@@ -7,6 +7,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import Navbar from "./navbar";
 import Footer from "./footer";
+import { importAll } from "../../services/importImageFolder";
 
 function Carts(props) {
   Carts.propTypes = {
@@ -14,6 +15,11 @@ function Carts(props) {
     cartsList: PropTypes.array.isRequired,
     addRemoveToProfile: PropTypes.func.isRequired,
   };
+
+  const images = importAll(
+    require.context("../../images/image_DB", false, /\.(png|jpe?g|svg)$/)
+  );
+  
 
   const cartsList = props.cartsList?.filter(
     (component) => component !== undefined || null
@@ -62,9 +68,7 @@ function Carts(props) {
             <div key={component?.name} className="component__card">
               <img
                 className="component__image"
-                src={`${process.env.REACT_APP_ROOT_URL}/static/media/${
-                  component?.image.split("images/")[1]
-                }`}
+                src={images[`${component.image.split("images/")[1]}`]}
                 // src={`../../images/image_DB/${
                 //   component?.image.split("images/")[1]
                 // }`}

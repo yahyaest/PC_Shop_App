@@ -5,7 +5,8 @@ import { addRemoveToProfile } from "./../../actions/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
-import Navbar from "./navbar";import Footer from "./footer";
+import Navbar from "./navbar"; import Footer from "./footer";
+import { importAll } from "../../services/importImageFolder";
 
 function Favourites(props) {
   Favourites.propTypes = {
@@ -19,6 +20,11 @@ function Favourites(props) {
   );
   const userProfileData = props.profile;
   let { favourites } = userProfileData?.data ? userProfileData?.data : ""; // Due to the setTimeout in action dispatching
+
+  const images = importAll(
+    require.context("../../images/image_DB", false, /\.(png|jpe?g|svg)$/)
+  );
+  
 
   const updateFavouriteList = (component) => {
     // console.log(component);
@@ -51,9 +57,7 @@ function Favourites(props) {
           {favouritesList?.map((component) => (
             <div key={component?.name} className="component__card">
               <img
-                src={`${process.env.REACT_APP_ROOT_URL}/static/media/${
-                  component?.image.split("images/")[1]
-                }`}
+                src={images[`${component.image.split("images/")[1]}`]}
                 // src={`../../images/image_DB/${
                 //   component?.image.split("images/")[1]
                 // }`}

@@ -8,6 +8,7 @@ import { Button } from "react-bootstrap";
 import Navbar from "./navbar";
 import { toast } from "react-toastify";
 import Footer from "./footer";
+import { importAll } from "../../services/importImageFolder";
 import "../../css/componentPage.css";
 
 function ComponentPage(props) {
@@ -24,6 +25,11 @@ function ComponentPage(props) {
   const userProfileData = props.profile;
   let { chart } = userProfileData?.data ? userProfileData?.data : ""; // Due to the setTimeout in action dispatching
   let { favourites } = userProfileData?.data ? userProfileData?.data : ""; // Due to the setTimeout in action dispatching
+  
+const images = importAll(
+  require.context("../../images/image_DB", false, /\.(png|jpe?g|svg)$/)
+);
+  
 
   useEffect(() => {
     const componentVariant = props.match.params.component;
@@ -64,9 +70,7 @@ function ComponentPage(props) {
               // src={`/../../images/image_DB/${
               //   component?.image.split("images/")[1]
               // }`}
-              src={`${process.env.REACT_APP_ROOT_URL}/static/media/${
-                component?.image.split("images/")[1]
-              }`}
+              src={images[`${component?.image.split("images/")[1]}`]}
               alt=""
               className="component__photo"
             />

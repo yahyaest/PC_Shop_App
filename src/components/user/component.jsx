@@ -10,6 +10,8 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "../../css/component.css";
+import { importAll } from "../../services/importImageFolder";
+
 
 function Component(props) {
   Component.propTypes = {
@@ -24,6 +26,12 @@ function Component(props) {
   const userProfileData = props.profile;
   let { favourites } = userProfileData?.data ? userProfileData?.data : ""; // Due to the setTimeout in action dispatching
 
+ 
+  const images = importAll(
+    require.context("../../images/image_DB", false, /\.(png|jpe?g|svg)$/)
+  );
+  
+
   //console.log("Debug", userProfileData, favourites, chart);
 
   useEffect(() => {
@@ -31,6 +39,8 @@ function Component(props) {
     props.getComponents(componentVariant);
   }, []);
 
+
+  
   const componentIsFavourite = (componentName) => {
     // Create table that contain names of favourite components
     const favouriteList = [];
@@ -83,7 +93,7 @@ function Component(props) {
                   // src={`../../images/image_DB/${
                   //   component?.image.split("images/")[1]
                   // }`}
-                  src={`${process.env.REACT_APP_ROOT_URL}/static/media/${component?.image.split("images/")[1]}`}
+                  src={images[`${component.image.split("images/")[1]}`]}
                   alt=""
                   className="component__image"
                   onClick={() => {

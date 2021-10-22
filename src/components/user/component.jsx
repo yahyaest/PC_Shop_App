@@ -10,7 +10,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "../../css/component.css";
-import { importAll,getImageIndex } from "../../services/importImageFolder";
+import { importAll, getImageIndex } from "../../services/importImageFolder";
 
 function Component(props) {
   Component.propTypes = {
@@ -28,7 +28,6 @@ function Component(props) {
   const images = importAll(
     require.context("../../images/image_DB", false, /\.(png|jpe?g|svg)$/)
   );
-
 
   useEffect(() => {
     props.currentComponent(componentVariant.toUpperCase());
@@ -72,8 +71,6 @@ function Component(props) {
       }
     }
   };
-
-
 
   return (
     <React.Fragment>
@@ -134,7 +131,7 @@ function Component(props) {
           )}
         </div>
       </div>
-      <Footer />;
+      <Footer />
     </React.Fragment>
   );
 }

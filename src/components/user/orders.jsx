@@ -19,7 +19,6 @@ function Orders(props) {
     fetchOrders();
   }, []);
 
-  console.log(orders);
   if (orders?.length === 0) {
     return (
       <React.Fragment>
